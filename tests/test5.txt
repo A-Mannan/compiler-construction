@@ -1,0 +1,38 @@
+
+
+interface C {
+
+}
+
+interface D {
+    int function myFunc(int a, int b);
+}
+
+
+class A {
+    declare int[][][] arr;
+    declare float* point;
+}
+
+class B inherits A implements C, D {
+    public declare int a = 5;
+    public int function myFunc(int a, int b){
+        declare char cc;
+        declare string text= "Hello";
+    }
+
+    mainEntry(){
+        while(a<6){
+            break;
+        }
+    }
+}
+
+struct E {
+    public declare int b = 5;
+    constructor(char c){
+
+    }
+
+}
+

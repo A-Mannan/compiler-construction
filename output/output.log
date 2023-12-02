@@ -1,0 +1,20 @@
+| Token Type     | Value    |   Line Number |
+|----------------+----------+---------------|
+| IDENTIFIER     | ab5      |             1 |
+| FLOAT_LITERAL  | 9.98     |             2 |
+| FLOAT_LITERAL  | 9.67     |             3 |
+| FLOAT_LITERAL  | .45      |             3 |
+| IDENTIFIER     | a        |             4 |
+| DOT            | .        |             4 |
+| IDENTIFIER     | b        |             4 |
+| INVALID_LEXEME | .5nn     |             4 |
+| IDENTIFIER     | acd      |             5 |
+| FLOAT_LITERAL  | .876     |             5 |
+| DOT            | .        |             5 |
+| IDENTIFIER     | b        |             5 |
+| FLOAT_LITERAL  | .6       |             5 |
+| INVALID_LEXEME | "kcn\"jk |             7 |
+| INVALID_LEXEME | "csc     |             8 |
+| CHAR_LITERAL   | \n       |             9 |
+| INVALID_LEXEME | '\nm     |            10 |
+| INVALID_LEXEME | '        |            10 |

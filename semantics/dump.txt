@@ -1,0 +1,151 @@
+from typing import List, Dict, Tuple
+from semantics.utils import ScopeTableEntry, DefinitionTableEntry
+
+
+class SymbolTableManager:
+    def __init__(self) -> None:
+        self.scope_num = 0
+        self.scope_stack: List[int] = []
+        self.scope_table: Dict[Tuple[str, int], str] = {}
+        self.definition_table: Dict[str, DefinitionTableEntry] = {}
+
+    def generate_scope_number(self):
+        self.scope_num += 1
+        return self.scope_num
+
+    def insert_into_scope_table(self, name: str, var_type: str, scope: int) -> bool:
+        # for entry in self.scope_table:
+            # if entry["name"] == name and entry["scope"] == scope:
+            #     return False
+        # self.scope_table.append({"name": name, "type": var_type, "scope": scope})
+        return True
+
+    def insert_into_definition_table(
+        self, name: str, def_type: str, access_modifier: str, parent_name: str
+    ) -> bool:
+        # for entry in self.definition_table:
+        #     if entry["name"] == name:
+        #         return False
+        if name in self.definition_table:
+            return False
+
+        self.definition_table[name] = {
+            # "name": name,
+            "type": def_type,
+            "access_modifier": access_modifier,
+            "parent": parent_name,
+            "member_table": {},
+        }
+
+        return True
+
+    def insert_into_member_table(
+        self,
+        name: str,
+        member_type: str,
+        access_modifier: str,
+        type_modifier: str,
+        is_const: bool,
+        ref: str,
+    ) -> bool:
+        # for entry_index, entry in enumerate(self.definition_table):
+        #     if entry["name"] == ref:
+        #         for member_entry in entry["member_table"]:
+        #             if member_entry["name"] == name:
+        #                 return False
+        #         self.definition_table[entry_index]["member_table"].append(
+        #             {
+        #                 "name": name,
+        #                 "type": member_type,
+        #                 "access_modifier": access_modifier,
+        #                 "type_modifier": type_modifier,
+        #                 "is_const": is_const,
+        #             }
+        #         )
+        # return False
+        if (
+            ref not in self.definition_table
+            or name in self.definition_table[ref]["member_table"]
+        ):
+            return False
+
+        self.definition_table[ref]["member_table"][name] = {
+            "type": member_type,
+            "access_modifier": access_modifier,
+            "type_modifier": type_modifier,
+            "is_const": is_const,
+        }
+
+        return True
+
+    def lookup_func(self):
+        ...
+
+
+
+        # if name in self.definition_table:
+        #     return False
+
+        # self.definition_table[name] = {
+        #     "type": def_type,
+        #     "access_modifier": access_modifier,
+        #     "parent": parent_name,
+        #     "member_table": [],
+        # }
+
+        # return True
+
+
+        for member_entry in self.definition_table[ref]["member_table"]:
+            if member_entry["name"] == name:
+                if member_type.is_variable or member_entry["type"].is_variable:
+                    return False
+                if (
+                    member_type.is_function
+                    and member_entry["type"].func_param_type_list
+                    == member_type.func_param_type_list
+                ):
+                    return False
+
+        self.definition_table[ref]["member_table"].append(
+            {
+                "name": name,
+                "type": member_type,
+                "access_modifier": access_modifier,
+                "type_modifier": type_modifier,
+            }
+        )
+
+        return True
+
+        # for entry_index, entry in enumerate(self.definition_table):
+        #     if entry["name"] == ref:
+        #         for member_entry in entry["member_table"]:
+        #             if member_entry["name"] == name:
+        #                 if member_entry[""]
+        #                 return False
+        #         self.definition_table[entry_index]["member_table"].append(
+        #             {
+        #                 "name": name,
+        #                 "type": member_type,
+        #                 "access_modifier": access_modifier,
+        #                 "type_modifier": type_modifier,
+        #                 "is_const": is_const,
+        #             }
+        #         )
+        # return False
+
+        # if (
+        #     ref not in self.definition_table
+        #     or name in self.definition_table[ref]["member_table"]
+        # ):
+        #     return False
+
+        # self.definition_table[ref]["member_table"][name] = {
+        #     "type": member_type,
+        #     "access_modifier": access_modifier,
+        #     "type_modifier": type_modifier,
+        #     "is_const": is_const,
+        # }
+
+        # return True

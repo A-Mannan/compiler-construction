@@ -1,0 +1,48 @@
+99.99.99
+int* a,aa;  
+
+float b =  +5.6 "ahbj";
+
+
+char c = '\nggg'l';
+int r = 78; // "this is a single "line" comment
+
+string s = "uiub\"jbkj";
+
+char = 
+"cdkjcm"
+/* this is a 
+    "multline"
+    comment 
+*/
+r+++=-6
+
+class MyClass {
+    private int   /*ignore*/      myVariable;
+
+    main(){
+
+    }
+}
+
+myVariable.myFunc()
+string ss = "yvjhvjhbj\\"ilkkn"
+char c = '\m'
+cjdfbc
+
+for ( int i = 0; i < 5 ; i++){
+    while ( i < 3){
+        break
+    }
+}
+
+a = 2-2.5
+
+bool check = true;
+
+char c = 'n'+'\n'++'++5
+
+void
+
+ss[1]
+

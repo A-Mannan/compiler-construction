@@ -1,0 +1,44 @@
+public class C {
+    public declare float num = 2;
+    public declare int[] arr = [];
+
+    public static declare float myStatic = 1.0;
+
+    constructor(){
+        declare int abc = 0;
+    }
+
+    public float function myFunc() {
+        declare int xyz = 2;
+        return 0.5;
+    }
+}
+
+
+public class A inherits C{
+     public float function myFunc() {
+        declare int xyz = 2;
+        return 0.5;
+    }
+    mainEntry(){
+        declare float a = C.myStatic;
+        C.myStatic = 2.0;
+        declare float b = a + 2;
+        declare C* c;
+        declare float D = c->num + b + c->myFunc() + c->arr[0];
+        a+=2;
+        //c = makeObj C();
+        //declare int a,b;
+        declare int[][] arr2 = [[1,1], [2,2], [3,3]]; 
+        declare C obj12=makeObj A();
+        declare float myval = a+obj12.myFunc()*55.0;
+        while (!(a<b)){
+            declare float y;
+        }
+         for (declare int i=0;i<7;i+=1)
+        {   
+            declare int j=0;
+            
+        }
+    }
+}

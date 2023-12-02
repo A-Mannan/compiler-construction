@@ -1,0 +1,50 @@
+public class A {
+    
+}
+
+interface B {
+
+}
+
+interface C {
+
+}
+
+public class D inherits A implements B, C {
+    declare int  a = 6;
+    declare myObj b = makeObj B();
+    declare int[][][]  a =[[[1,2,3],[4,5,6]]];
+
+
+    constructor(){ 
+        *this.a.b-> c= 1+4;
+    }
+
+    public static int function b(int c){
+        declare int var = 'm'+67-a.b.fn()[1][2][3][4];
+
+        for (declare int i = 0; i <=5 ; i+=1){
+            break;
+            continue;
+        }
+
+        return ;
+    }
+
+    private float[2][3] function matrix(){
+        return [[2,3], [1,2], [4,5]];
+    }
+    private A[67][3] function matrix(){
+        return [[2,3], [1,2], [4,5]];
+    }
+    constructor(){
+        this.a.b->c = 1;
+    }constructor(){
+        this.a.b->c = 1;
+    }
+}
+
+interface A {
+    int function aa();
+    int function a(int a, A obj,int[a] ar);
+}

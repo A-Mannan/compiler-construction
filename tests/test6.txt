@@ -1,0 +1,34 @@
+
+
+class C{
+    public declare float num = 2;
+    public declare int[] arr = [];
+
+    constructor(){
+        declare int abc = 0;
+    }
+
+    public float function myFunc() {
+        declare int xyz = 2;
+        return 0.5;
+    }
+}
+
+class B inherits C{
+
+}
+
+public class A {
+    mainEntry(){
+        declare int a = 1;
+        declare int b = a + 2;
+        declare C* c;
+        declare float D = c->num + b + c->myFunc() + c->arr[0];
+        a+=2;
+        *c = makeObj C();
+
+        while (!(a<b)){
+            declare float y;
+        }
+    }
+}
