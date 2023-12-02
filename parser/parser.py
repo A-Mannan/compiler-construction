@@ -233,6 +233,11 @@ class Parser:
             return
         node.add_child(child)
 
+        implements_interface, interface_name = self.st_manager.check_implements_interface()
+        if not implements_interface:
+            self.display_semantic_error(f"{self.st_manager.current_def_name} does not implements {interface_name} completely")
+            return
+
         if not self.st_manager.check_constructor_exist():
             member_table_entry = MemberTableEntry()
             member_table_entry.name = "constructor"
@@ -285,6 +290,11 @@ class Parser:
         if child is None:
             return
         node.add_child(child)
+
+        implements_interface, interface_name = self.st_manager.check_implements_interface()
+        if not implements_interface:
+            self.display_semantic_error(f"{self.st_manager.current_def_name} does not implements {interface_name} completely")
+            return
 
         if not self.st_manager.check_constructor_exist():
             member_table_entry = MemberTableEntry()
@@ -2674,10 +2684,10 @@ class Parser:
             child, result_type = child
             node.add_child(child)
 
-            print(
-                f"Result type of expression on line {self.curr_token.line_number}: ",
-                result_type,
-            )
+            # print(
+            #     f"Result type of expression on line {self.curr_token.line_number}: ",
+            #     result_type,
+            # )
 
             return node, result_type
 
@@ -3788,7 +3798,36 @@ class Parser:
 
     def parse_expression_or_object_creation(self):
         node = TreeNode("expression_or_object_creation")
+        if self.curr_token.token_type in {
+            tt.THIS,
+            tt.SUPER,
+            tt.IDENTIFIER,
+            tt.INTEGER_LITERAL,
+            tt.FLOAT_LITERAL,
+            tt.BOOL_LITERAL,
+            tt.CHAR_LITERAL,
+            tt.STRING_LITERAL,
+            tt.ROUND_BRACKET_OPEN,
+            tt.NOT_OPERATOR,
+            tt.POINTER_MULTIPLY,
+        }:
+            child = self.parse_expression()
+            if child is None:
+                return
+            child, result_type = child
+            node.add_child(child)
+
+            return node, result_type
         
+        elif self.curr_token.token_type in {tt.OBJ_CREATOR}:
+            child = self.parse_object_creation()
+            if child is None:
+                return
+            child, result_type = child
+            node.add_child(child)
+
+            return node, result_type
+        self.display_error("expected expression or object creation")
 
     def parse_array_initialization(self):
         node = TreeNode("array_initialization")
@@ -3879,9 +3918,9 @@ class Parser:
             tt.ROUND_BRACKET_OPEN,
             tt.NOT_OPERATOR,
             tt.POINTER_MULTIPLY,
-            # tt.OBJ_CREATOR,
+            tt.OBJ_CREATOR,
         }:
-            child = self.parse_expression()
+            child = self.parse_expression_or_object_creation()
             if child is None:
                 return
             child, result_type = child
@@ -3891,7 +3930,6 @@ class Parser:
                 self.display_semantic_error("array cannot have type pointer")
                 return
 
-            print("first element type: ", arr_type_1d, "curr element type: ", result_type)
             if arr_type_1d is not None and arr_type_1d != result_type:
                 self.display_semantic_error("All array elements must have same type")
                 return
@@ -4031,9 +4069,9 @@ class Parser:
             tt.ROUND_BRACKET_OPEN,
             tt.NOT_OPERATOR,
             tt.POINTER_MULTIPLY,
-            # tt.OBJ_CREATOR,
+            tt.OBJ_CREATOR,
         }:
-            child = self.parse_expression()
+            child = self.parse_expression_or_object_creation()
             if child is None:
                 return
             child, result_type = child
@@ -4141,7 +4179,7 @@ class Parser:
             tt.ROUND_BRACKET_OPEN,
             tt.NOT_OPERATOR,
             tt.POINTER_MULTIPLY,
-            # tt.OBJ_CREATOR,
+            tt.OBJ_CREATOR,
         }:
             child = self.parse_3d_array_element()
             if child is None:
@@ -4182,9 +4220,9 @@ class Parser:
             tt.ROUND_BRACKET_OPEN,
             tt.NOT_OPERATOR,
             tt.POINTER_MULTIPLY,
-            # tt.OBJ_CREATOR,
+            tt.OBJ_CREATOR,
         }:
-            child = self.parse_expression()
+            child = self.parse_expression_or_object_creation()
             if child is None:
                 return
             child, result_type = child
@@ -4507,6 +4545,7 @@ class Parser:
             child = self.parse_expression()
             if child is None:
                 return
+            child, _ = child
             node.add_child(child)
 
             return node

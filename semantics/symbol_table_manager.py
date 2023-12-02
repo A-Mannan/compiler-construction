@@ -40,8 +40,28 @@ class SymbolTableManager:
             for entry in def_table.member_table:
                 if entry.name == "constructor" and entry.type.is_function:
                     return True
-                
+
         return False
+
+    def check_implements_interface(self):
+        def_table = self.lookup_definition_table(self.current_def_name)
+        for interface_name in def_table.interface_list:
+            while True:
+                interface_table_entry = self.lookup_definition_table(interface_name)
+                for interface_member in interface_table_entry.member_table:
+                    if (
+                        self.lookup_member_table_func(
+                            interface_member.name,
+                            interface_member.type.func_param_type_list,
+                            self.current_def_name,
+                        )
+                        is None
+                    ):
+                        return False, interface_name
+                interface_name = interface_table_entry.parent_class
+                if interface_name is None:
+                    break
+        return True, None
 
     def insert_into_scope_table(self, scope_table_entry: ScopeTableEntry) -> bool:
         scope_table_entry.scope, _ = self.scope_stack[-1]
@@ -190,6 +210,26 @@ class SymbolTableManager:
             else:
                 return
 
+        elif operator in ["+=", "-=", "*=", "/=", "%="]:
+            if left_operand_type.data_type == right_operand_type.data_type:
+                return left_operand_type
+            elif (
+                left_operand_type.data_type == "float"
+                and right_operand_type.data_type == "int"
+            ):
+                if self.check_types_differ(left_operand_type, right_operand_type):
+                    return
+                return left_operand_type
+            elif (
+                left_operand_type.is_array
+                and right_operand_type.is_array
+                and right_operand_type.data_type == ""
+            ):
+                return left_operand_type
+
+            else:
+                return
+
         if left_operand_type.is_array or right_operand_type.is_array:
             return
         if left_operand_type.is_pointer or right_operand_type.is_pointer:
@@ -257,15 +297,6 @@ class SymbolTableManager:
             if (
                 left_operand_type.data_type == "float"
                 and right_operand_type.data_type == "float"
-            ):
-                return TypeInfo("float")
-
-        elif operator in ["=", "+=", "-=", "*=", "/=", "%="]:
-            if left_operand_type.data_type == right_operand_type.data_type:
-                return left_operand_type
-            if (
-                left_operand_type.data_type == "float"
-                and right_operand_type.data_type == "int"
             ):
                 return TypeInfo("float")
 

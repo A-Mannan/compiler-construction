@@ -1,4 +1,9 @@
-public class C {
+interface D {
+    float function myFunc();
+}
+
+
+public class C implements D {
     public declare float num = 2;
     public declare int[] arr = [];
 
@@ -20,6 +25,8 @@ public class A inherits C{
         declare int xyz = 2;
         return 0.5;
     }
+    constructor(int foo){
+    }
     mainEntry(){
         declare float a = C.myStatic;
         C.myStatic = 2.0;
@@ -27,11 +34,15 @@ public class A inherits C{
         declare C* c;
         declare float D = c->num + b + c->myFunc() + c->arr[0];
         a+=2;
+        declare string text = "Hello";
+        text += "World";
         //c = makeObj C();
         //declare int a,b;
         declare int[][] arr2 = [[1,1], [2,2], [3,3]]; 
         declare C obj12=makeObj A();
         declare float myval = a+obj12.myFunc()*55.0;
+        declare float[2][2] arr3 = [[1.0/0.0,1.0], [2.0,2.0], [3.0,3.0]];
+        declare C[] arr4 = [makeObj C()];
         while (!(a<b)){
             declare float y;
         }
