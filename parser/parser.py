@@ -38,23 +38,24 @@ class Parser:
         )
         print("-" * 70)
 
+    def get_all_symbol_tables(self):
+        symbol_tables_str = ""
+        symbol_tables_str += self.st_manager.get_def_table()
+        symbol_tables_str += self.st_manager.get_all_member_tables()
+        symbol_tables_str += self.st_manager.get_scope_table()
+        return symbol_tables_str
+
     def parse(self):
-        # try:
         node = self.parse_program()
-        # if node is not None:
         self.parse_tree = node
 
         if self.curr_token.token_type != tt.EOF_MARKER:
-            print("All tokens were not parsed !!!")
+            print("All tokens were not parsed :(")
+        else:
+            print("All tokens parsed successfully :)")
 
-        self.st_manager.print_def_table()
-        print()
-        self.st_manager.print_all_member_tables()
-        print()
-        self.st_manager.print_scope_table()
         return self.parse_tree
-        # except:
-        #     ...
+
 
     def parse_program(self):
         node = TreeNode("program")

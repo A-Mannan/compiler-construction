@@ -211,7 +211,12 @@ class SymbolTableManager:
                 return
 
         elif operator in ["+=", "-=", "*=", "/=", "%="]:
-            if left_operand_type.data_type == right_operand_type.data_type:
+            if (
+                left_operand_type.is_user_defined_type
+                or right_operand_type.is_user_defined_type
+            ):
+                return
+            elif left_operand_type.data_type == right_operand_type.data_type:
                 return left_operand_type
             elif (
                 left_operand_type.data_type == "float"
@@ -347,8 +352,8 @@ class SymbolTableManager:
             new_type.is_pointer = True
             return new_type
 
-    def print_def_table(self):
-        print("Definition Table")
+    def get_def_table(self):
+        text = "Definition Table:\n==========================\n"
         entry_tuples = []
         for entry in self.definition_table:
             entry_tuples.append(
@@ -361,19 +366,18 @@ class SymbolTableManager:
                 )
             )
 
-        print(
-            tabulate(
-                entry_tuples,
-                headers=["Name", "Access Modifier", "Type", "Parent", "Interface"],
-                tablefmt="orgtbl",
-            )
+        text += tabulate(
+            entry_tuples,
+            headers=["Name", "Access Modifier", "Type", "Parent", "Interface"],
+            tablefmt="orgtbl",
         )
+        return text
 
-    def print_all_member_tables(self):
-        print("Member Tables: ")
+    def get_all_member_tables(self):
+        text = "\n\nMember Tables: \n=========================="
         for def_entry in self.definition_table:
             entry_tuples = []
-            print(f"\n {def_entry.name} Members")
+            text += f"\n\n{def_entry.name} Members\n---------------------\n"
             for entry in def_entry.member_table:
                 entry_tuples.append(
                     (
@@ -384,24 +388,23 @@ class SymbolTableManager:
                     )
                 )
 
-            print(
-                tabulate(
-                    entry_tuples,
-                    headers=["Name", "Access Modifier", "Type", "Is Static"],
-                    tablefmt="orgtbl",
-                )
+            text += tabulate(
+                entry_tuples,
+                headers=["Name", "Access Modifier", "Type", "Is Static"],
+                tablefmt="orgtbl",
             )
 
-    def print_scope_table(self):
-        print("Scope Table:")
+        return text
+
+    def get_scope_table(self):
+        text = "\n\nScope Table:\n==========================\n"
         entry_tuples = []
         for entry in self.scope_table:
             entry_tuples.append((entry.name, entry.type, entry.scope))
 
-        print(
-            tabulate(
-                entry_tuples,
-                headers=["Name", "Type", "Scope"],
-                tablefmt="orgtbl",
-            )
+        text += tabulate(
+            entry_tuples,
+            headers=["Name", "Type", "Scope"],
+            tablefmt="orgtbl",
         )
+        return text

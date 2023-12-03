@@ -4,7 +4,7 @@ interface D {
 
 
 public class C implements D {
-    public declare float num = 2;
+    public declare int num = 2;
     public declare int[] arr = [];
 
     public static declare float myStatic = 1.0;
@@ -36,7 +36,7 @@ public class A inherits C{
         a+=2;
         declare string text = "Hello";
         text += "World";
-        //c = makeObj C();
+        *c += makeObj C();
         //declare int a,b;
         declare int[][] arr2 = [[1,1], [2,2], [3,3]]; 
         declare C obj12=makeObj A();

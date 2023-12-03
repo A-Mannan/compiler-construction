@@ -1,0 +1,48 @@
+Definition Table:
+==========================
+| Name   | Access Modifier   | Type      | Parent   | Interface   |
+|--------+-------------------+-----------+----------+-------------|
+| D      | public            | interface |          | []          |
+| C      | public            | class     |          | ['D']       |
+| A      | public            | class     | C        | []          |
+
+Member Tables: 
+==========================
+
+D Members
+---------------------
+| Name   | Access Modifier   | Type                  | Is Static   |
+|--------+-------------------+-----------------------+-------------|
+| myFunc |                   | Function: None->float | False       |
+
+C Members
+---------------------
+| Name        | Access Modifier   | Type                  | Is Static   |
+|-------------+-------------------+-----------------------+-------------|
+| num         | public            | Var: int              | False       |
+| arr         | public            | Var: int[]            | False       |
+| myStatic    | public            | Var: float            | True        |
+| constructor | public            | Function: None->None  | False       |
+| myFunc      | public            | Function: None->float | False       |
+
+A Members
+---------------------
+| Name        | Access Modifier   | Type                  | Is Static   |
+|-------------+-------------------+-----------------------+-------------|
+| myFunc      | public            | Function: None->float | False       |
+| constructor | public            | Function: int->None   | False       |
+| mainEntry   | public            | Function: None->None  | False       |
+
+Scope Table:
+==========================
+| Name   | Type   |   Scope |
+|--------+--------+---------|
+| abc    | int    |       2 |
+| xyz    | int    |       3 |
+| xyz    | int    |       4 |
+| foo    | int    |       5 |
+| a      | float  |       6 |
+| b      | float  |       6 |
+| c      | C*     |       6 |
+| D      | float  |       6 |
+| text   | string |       6 |
