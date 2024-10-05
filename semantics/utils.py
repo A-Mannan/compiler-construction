@@ -1,4 +1,4 @@
-from typing import List, TypedDict
+from typing import List
 
 
 class TypeInfo:
@@ -84,17 +84,3 @@ class DefinitionTableEntry:
         self.parent_class = None
         self.interface_list = []
         self.member_table = []
-
-
-class TypeCheckingInfo(TypedDict):
-    left_operand_type: TypeInfo
-    right_operand_type: TypeInfo
-    operator: str
-    resultant_type: TypeInfo
-
-
-# class MemberType:
-#     isVariableType: bool
-#     isFuncType: bool
-#     var_type: str
-#     func_param_type_list: List

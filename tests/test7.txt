@@ -3,17 +3,39 @@ interface D {
 }
 
 
-public class C implements D {
+class X {
+    public declare int myVar;
+}
+
+
+public class C inherits X implements D {
     public declare int num = 2;
-    public declare int[] arr = [];
+    protected declare int[] arr = [];
 
     public static declare float myStatic = 1.0;
 
     constructor(){
+        this->num = 4;
+        super->myVar = 5;
         declare int abc = 0;
     }
 
-    public float function myFunc() {
+    constructor(int a){
+        declare int abc = 0;
+    }
+
+
+
+    public X function myFunc() {
+        declare int xyz = 2;
+        declare X x;
+        return x;
+    }
+    public float function myFunc(int a) {
+        declare int xyz = 2;
+        return 0.5;
+    }
+    public float function myFunc(float a) {
         declare int xyz = 2;
         return 0.5;
     }
@@ -21,10 +43,6 @@ public class C implements D {
 
 
 public class A inherits C{
-     public float function myFunc() {
-        declare int xyz = 2;
-        return 0.5;
-    }
     constructor(int foo){
     }
     mainEntry(){
@@ -32,15 +50,18 @@ public class A inherits C{
         C.myStatic = 2.0;
         declare float b = a + 2;
         declare C* c;
-        declare float D = c->num + b + c->myFunc() + c->arr[0];
+        declare float D = c->num + b + c->myFunc().myVar + c->arr[0];
         a+=2;
         declare string text = "Hello";
         text += "World";
-        *c += makeObj C();
+        *c = makeObj C(1);
+        declare C* obj4;
+        declare C c2;
+        obj4 = c;
         //declare int a,b;
         declare int[][] arr2 = [[1,1], [2,2], [3,3]]; 
         declare C obj12=makeObj A();
-        declare float myval = a+obj12.myFunc()*55.0;
+        declare float myval = a+obj12.myFunc().myVar*55.0;
         declare float[2][2] arr3 = [[1.0/0.0,1.0], [2.0,2.0], [3.0,3.0]];
         declare C[] arr4 = [makeObj C()];
         while (!(a<b)){
@@ -48,7 +69,7 @@ public class A inherits C{
         }
          for (declare int i=0;i<7;i+=1)
         {   
-            declare int j=0;
+            declare int j=2;
             
         }
     }

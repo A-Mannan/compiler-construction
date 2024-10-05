@@ -7,7 +7,6 @@ from semantics.utils import (
     ScopeTableEntry,
     MemberTableEntry,
     TypeInfo,
-    TypeCheckingInfo,
 )
 from typing import List, Union
 
@@ -3717,7 +3716,7 @@ class Parser:
             "expected '[' , '.' , an operator or an expression termination"
         )
 
-    def parse_pointer_dereferencing(self, result_type: TypeCheckingInfo):
+    def parse_pointer_dereferencing(self, result_type: TypeInfo):
         node = TreeNode("pointer_dereferencing")
         if self.curr_token.token_type == tt.POINTER_MULTIPLY:
             child = TreeNode(self.curr_token.token_type.name, self.curr_token.value)
